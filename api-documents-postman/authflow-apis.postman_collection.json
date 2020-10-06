@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "525251c3-8b0f-4f9f-8f8a-0f4411e417cb",
+		"name": "authflow-apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Registration API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/TechBridge/Logo/wallpaper.jfif"
+						},
+						{
+							"key": "email",
+							"value": "patelgunjan777@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "fullname",
+							"value": "Gunjan Patel",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password!23",
+							"type": "text"
+						},
+						{
+							"key": "skill",
+							"value": "[ \"javascript\", \"C/C++\" ]",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{domain}}/api/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Authantication API - Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7fe9cfb0-1f05-45fb-b5d2-88a06e32b2ef",
+						"exec": [
+							"var res = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"TOKEN\", res.token);\r",
+							"pm.environment.set(\"ID\", res.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"patelgunjan777@gmail.com\",\r\n    \"password\": \"password!23\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{domain}}/api/v1/users/authenticate",
+					"protocol": "http",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Retrive All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{domain}}/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				},
+				"description": "In authorization section we need to pass Bearer Token for Validate user"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Profile of User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{domain}}/api/v1/users/{{ID}}",
+					"protocol": "http",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Update All user fields",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/TechBridge/Logo/wallpaper.jfif"
+						},
+						{
+							"key": "email",
+							"value": "patelgunjan77@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "fullname",
+							"value": "Gunjankumar K Patel",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password1@3",
+							"type": "text"
+						},
+						{
+							"key": "skill",
+							"value": "[\"updatedskill\"]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{domain}}/api/v1/users/{{ID}}",
+					"protocol": "http",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
